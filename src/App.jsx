@@ -11,6 +11,11 @@ import mozg from "./assets/Мозг.png";
 import peshen from "./assets/печень.jpeg";
 import serdsa from "./assets/Сердца.svg";
 import iazik from "./assets/язык.jpg";
+import poshka from "./assets/почька.png";
+import bgHuman from "./assets/bgHuman.png";
+
+
+
 
 const anatomyData = [
   {
@@ -75,7 +80,7 @@ const anatomyData = [
   },
   {
     id: "lungs",
-    name: "Лёгкие 🫁",
+    name: "Лёгкие",
     description: "Сложная дыхательная система, где происходит газообмен. Состоят из миллионов альвеол (пузырьков), общая площадь которых сравнима с теннисным кортом! Легкие покрыты плеврой - защитной оболочкой. Правое легкое состоит из 3 долей, левое - из 2 (чтобы оставить место для сердца). Дыхание контролируется диафрагмой - мощной мышцей под легкими. Каждый день мы делаем около 20,000 вдохов!",
     facts: [
       "Содержат около 600 миллионов альвеол",
@@ -110,7 +115,7 @@ const anatomyData = [
   },
   {
     id: "liver",
-    name: "Печень 🟫",
+    name: "Печень ",
     description: "Главная химическая лаборатория организма. Выполняет более 500 функций, включая детоксикацию, синтез белков (например, факторов свертывания крови), производство желчи и хранение витаминов. Печень состоит из особых клеток - гепатоцитов, способных к быстрой регенерации. Это единственный орган, который может полностью восстановиться даже после удаления 75% своей ткани! Печень также регулирует уровень глюкозы в крови и участвует в иммунных процессах.",
     facts: [
       "Самый большой внутренний орган (1.5 кг)",
@@ -145,7 +150,7 @@ const anatomyData = [
   },
   {
     id: "stomach",
-    name: "Желудок 🤢",
+    name: "Желудок ",
     description: "Мышечный мешок, где пища смешивается с желудочным соком. Содержит соляную кислоту (pH 1.5-3.5), способную растворять металл, и специальную слизь для защиты стенок. Желудок имеет три мышечных слоя, которые ритмично сокращаются, перемешивая пищу. В среднем пища находится в желудке 2-4 часа. Желудок может растягиваться от 50 мл (когда пуст) до 4 литров! Он также производит гормон грелин, отвечающий за чувство голода.",
     facts: [
       "Объем пустого желудка - 50 мл",
@@ -175,7 +180,7 @@ const anatomyData = [
   },
   {
     id: "kidneys",
-    name: "Почки 🟠",
+    name: "Почки ",
     description: "Сложные фильтрующие органы бобовидной формы, которые очищают кровь от токсинов и поддерживают водно-солевой баланс. Каждая почка содержит около 1 миллиона нефронов - микроскопических фильтров. Почки регулируют кровяное давление, производят гормон эритропоэтин (стимулирует образование эритроцитов) и активируют витамин D. Они фильтруют всю кровь организма каждые 30 минут! При отказе почек требуется диализ - искусственное очищение крови.",
     facts: [
       "Фильтруют 180 литров крови в день",
@@ -200,7 +205,8 @@ const anatomyData = [
       question: "Какую форму имеют почки?",
       options: ["Как шарик", "Как фасолина", "Как кубик", "Как звёздочка"],
       answer: 1
-    }
+    },
+    image:poshka,
   },
    
   {
@@ -295,7 +301,7 @@ const anatomyData = [
   },
   {
   id: "gastrointestinal",
-  name: "Желудочно-кишечный тракт 🍽️",
+  name: "кишечный тракт",
   description: "Желудочно-кишечный тракт (ЖКТ) - это сложная система органов, отвечающая за переваривание пищи, всасывание питательных веществ и выведение отходов. Он начинается с ротовой полости и заканчивается анальным отверстием, включая пищевод, желудок, тонкий и толстый кишечник. Общая длина ЖКТ у взрослого человека составляет около 9 метров! Пища проходит через всю эту систему за 24-72 часа, подвергаясь механической и химической обработке.",
   facts: [
     "Общая длина около 9 метров",
@@ -337,6 +343,14 @@ const randomFunFacts = [
   "Дети рождаются с 300 костями, а у взрослых их только 206!",
 ];
 
+const SOUND_URLS = {
+  click: "https://soundbible.com/mp3/Blop-Mark_DiAngelo-79054334.mp3",
+  correct: "https://www.soundjay.com/buttons/sounds/button-21.mp3",
+  wrong: "https://www.soundjay.com/buttons/sounds/button-10.mp3"
+};
+
+
+
 function App() {
   const [selectedOrgan, setSelectedOrgan] = useState(null);
   const [soundEnabled, setSoundEnabled] = useState(true);
@@ -347,23 +361,39 @@ function App() {
   const [showOrganMenu, setShowOrganMenu] = useState(true);
 
   // Create audio objects using useRef
-  const clickSound = useRef(new Audio("https://soundbible.com/mp3/Blop-Mark_DiAngelo-79054334.mp3"));
-  const correctSound = useRef(new Audio("https://soundbible.com/mp3/Right_answer-SoundBible.com-79052421.mp3"));
-  const wrongSound = useRef(new Audio("https://soundbible.com/mp3/Wrong_answer-SoundBible.com-79052420.mp3"));
+ const clickSound = useRef(null);
+  const correctSound = useRef(null);
+  const wrongSound = useRef(null);
+   const infoPanelRef = useRef(null);
 
-  useEffect(() => {
-    showRandomFunFact();
-    
+ useEffect(() => {
+    // Initialize audio elements
+    clickSound.current = new Audio(SOUND_URLS.click);
+    correctSound.current = new Audio(SOUND_URLS.correct);
+    wrongSound.current = new Audio(SOUND_URLS.wrong);
+
     // Preload sounds
-    clickSound.current.load();
-    correctSound.current.load();
-    wrongSound.current.load();
+    const preloadSounds = async () => {
+      try {
+        await clickSound.current.load();
+        await correctSound.current.load();
+        await wrongSound.current.load();
+      } catch (error) {
+        console.error("Error preloading sounds:", error);
+      }
+    };
+    preloadSounds();
+
+    showRandomFunFact();
 
     return () => {
       // Cleanup
-      clickSound.current.pause();
-      correctSound.current.pause();
-      wrongSound.current.pause();
+      [clickSound, correctSound, wrongSound].forEach(sound => {
+        if (sound.current) {
+          sound.current.pause();
+          sound.current.src = "";
+        }
+      });
     };
   }, []);
 
@@ -386,9 +416,9 @@ function App() {
           return;
       }
 
-      // Reset and play
-      sound.currentTime = 0;
-      sound.play().catch(error => {
+      // Create a new audio instance each time to avoid playback issues
+      const audio = new Audio(sound.src);
+      audio.play().catch(error => {
         console.error("Failed to play sound:", error);
       });
     } catch (error) {
@@ -396,13 +426,18 @@ function App() {
     }
   };
 
-  const selectOrgan = (organId) => {
+   const selectOrgan = (organId) => {
     playSound("click");
     setSelectedOrgan(organId);
     setActiveCircle(organId);
     setQuizActive(false);
     setQuizResult(null);
     setShowOrganMenu(false);
+
+    // Scroll to top when changing organs
+    if (infoPanelRef.current) {
+      infoPanelRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
 
     const organ = anatomyData.find((o) => o.id === organId);
     if (organ && organ.funFacts && organ.funFacts.length > 0) {
@@ -413,7 +448,6 @@ function App() {
       showRandomFunFact();
     }
   };
-
   const showRandomFunFact = () => {
     const randomFact =
       randomFunFacts[Math.floor(Math.random() * randomFunFacts.length)];
@@ -478,7 +512,7 @@ function App() {
       <div className="anatomy-viewer">
         <div className="diagram-container">
           <img
-            src="https://img.freepik.com/premium-vector/human-anatomy-internal-organ-set-with-brain-lungs-intestine-heart-kidney-pancreas-spleen-liver-stomach-vector-isolated-illustration_679557-4048.jpg"
+            src={bgHuman}
             alt="Органы человека"
             className="human-diagram"
           />
@@ -503,7 +537,7 @@ function App() {
           </div>
         </div>
 
-        <div className="info-panel">
+        <div className="info-panel" ref={infoPanelRef}>
           {showOrganMenu ? (
             <div className="organ-menu">
               <h2>Выбери орган для изучения:</h2>
