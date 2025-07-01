@@ -120,6 +120,7 @@ h1 {
   z-index: 20;
 }
 
+
 .organ-circle.active {
   animation: pulse 1s infinite, rainbow 3s infinite;
   opacity: 1;
@@ -1237,5 +1238,12 @@ h1 {
   
   .info-panel {
     height: 65vh;
+  }
+}
+
+
+@media (max-width: 456px) {
+  .organ-circle.none {
+    display: none !important;
   }
 }

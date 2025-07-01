@@ -527,7 +527,7 @@ function App() {
   <div
     key={organ.id}
     id={organ.id}
-    className={`organ-circle ${activeCircle === organ.id ? "active" : ""} ${organ.id}`}
+    className={`organ-circle none ${activeCircle === organ.id ? "active" : ""} ${organ.id}`}
     onClick={(e) => selectOrgan(organ.id, e)}
     onTouchStart={(e) => selectOrgan(organ.id, e)}
   >
