@@ -1043,3 +1043,199 @@ h1 {
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
+
+/* Add these styles to your existing CSS */
+
+@media (max-width: 1024px) {
+  .anatomy-viewer {
+    flex-direction: column;
+    height: 100vh; /* Make full viewport height */
+  }
+  
+  .diagram-container {
+    height: 40vh; /* 40% of viewport height */
+    min-height: 250px; /* Minimum height */
+    overflow: hidden; /* Prevent diagram from overflowing */
+  }
+  
+  .info-panel {
+    height: 60vh; /* 60% of viewport height */
+    min-height: 300px; /* Minimum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+  
+  /* Adjust organ circle sizes for better touch targets */
+  .organ-circle {
+    width: 50px;
+    height: 50px;
+    font-size: 14px;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  .diagram-container {
+    height: 35vh;
+  }
+  
+  .info-panel {
+    height: 65vh;
+  }
+  
+  /* Make sure the sound button stays accessible */
+  .sound-button {
+    bottom: 10px;
+    right: 10px;
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+}
+
+/* Ensure the human diagram stays properly scaled */
+.human-diagram {
+  max-height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+
+
+/* Add these styles to your existing CSS */
+
+/* Base mobile-first adjustments */
+@media (max-width: 1024px) {
+  body {
+    overflow: hidden; /* Prevent double scrolling */
+    height: 100vh; /* Full viewport height */
+  }
+
+  .container {
+    height: 100vh; /* Full viewport height */
+    padding: 0; /* Remove padding to maximize space */
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    flex-shrink: 0; /* Prevent header from shrinking */
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+
+  .anatomy-viewer {
+    flex: 1; /* Take all remaining space */
+    min-height: 0; /* Allow proper flex shrinking */
+    flex-direction: column;
+    border-radius: 0;
+  }
+  
+  .diagram-container {
+    height: 30vh; /* 30% of viewport height */
+    min-height: 200px;
+    overflow: hidden;
+    flex-shrink: 0; /* Prevent diagram from shrinking */
+  }
+  
+  .info-panel {
+    height: 70vh; /* 70% of viewport height */
+    min-height: 300px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    flex: 1; /* Take remaining space */
+    border-top: 3px dashed #4CAF50;
+    border-left: none;
+  }
+
+  /* Adjust human diagram */
+  .human-diagram {
+    max-height: 100%;
+    width: auto;
+    object-fit: contain;
+    transform: scale(0.9); /* Slightly smaller on mobile */
+    transform-origin: center;
+  }
+
+  /* Make organ circles more touch-friendly */
+  .organ-circle {
+    width: 55px;
+    height: 55px;
+    font-size: 16px;
+  }
+}
+
+/* Extra small devices (phones) */
+@media (max-width: 480px) {
+  header {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+  }
+
+  .subtitle {
+    font-size: 0.8rem;
+  }
+
+  .diagram-container {
+    height: 25vh; /* Even more space for info */
+  }
+  
+  .info-panel {
+    height: 75vh; /* Maximum space for content */
+    padding: 15px;
+  }
+
+  /* Optimize organ cards grid */
+  .organ-cards {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 8px;
+  }
+
+  .organ-card {
+    padding: 5px;
+  }
+
+  .organ-card-image, .organ-card-icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .organ-card-name {
+    font-size: 0.7rem;
+  }
+
+  /* Adjust sound button */
+  .sound-button {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+/* Portrait orientation specific adjustments */
+@media (max-width: 1024px) and (orientation: portrait) {
+  .diagram-container {
+    height: 25vh;
+  }
+  
+  .info-panel {
+    height: 75vh;
+  }
+}
+
+/* Landscape orientation specific adjustments */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .diagram-container {
+    height: 35vh;
+  }
+  
+  .info-panel {
+    height: 65vh;
+  }
+}
