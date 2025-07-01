@@ -964,3 +964,82 @@ h1 {
     bottom: 100px;
   }
 }
+
+
+
+
+
+/* Add these to your existing CSS */
+
+/* Ensure all interactive elements have proper touch targets */
+.organ-circle {
+  min-width: 60px;
+  min-height: 60px;
+  touch-action: manipulation; /* Improves touch responsiveness */
+  z-index: 100; /* Ensure it's above other elements */
+}
+
+/* Make organ cards more touch-friendly */
+.organ-card {
+  min-height: 100px;
+  padding: 15px;
+}
+
+/* Improve button touch targets */
+.fun-button, .back-button {
+  min-height: 48px;
+  min-width: 100px;
+  padding: 12px 20px;
+}
+
+/* Improve quiz option touch targets */
+.quiz-option {
+  padding: 15px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Add active states for touch feedback */
+.organ-circle:active, 
+.organ-card:active, 
+.fun-button:active, 
+.back-button:active,
+.quiz-option:active {
+  transform: scale(0.95);
+  opacity: 0.9;
+}
+
+/* Mobile-specific touch optimizations */
+@media (max-width: 768px) {
+  .organ-circle {
+    width: 70px !important;
+    height: 70px !important;
+    font-size: 24px;
+  }
+  
+  /* Adjust positions for better reachability */
+  .organ-circle#brain {
+    left: 10px !important;
+    top: 80px !important;
+  }
+  .organ-circle#heart {
+    left: 10px !important;
+    top: 220px !important;
+  }
+  /* Add similar adjustments for other organ positions */
+  
+  /* Make diagram container more touch-friendly */
+  .diagram-container {
+    padding: 10px;
+    touch-action: pan-x pan-y;
+  }
+}
+
+/* Prevent text selection on taps */
+.organ-circle, .organ-card, .quiz-option {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}

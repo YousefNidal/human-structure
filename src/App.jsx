@@ -426,28 +426,34 @@ function App() {
     }
   };
 
-   const selectOrgan = (organId) => {
-    playSound("click");
-    setSelectedOrgan(organId);
-    setActiveCircle(organId);
-    setQuizActive(false);
-    setQuizResult(null);
-    setShowOrganMenu(false);
+   const selectOrgan = (organId, e) => {
+  // Prevent default to avoid any touch delay
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  
+  playSound("click");
+  setSelectedOrgan(organId);
+  setActiveCircle(organId);
+  setQuizActive(false);
+  setQuizResult(null);
+  setShowOrganMenu(false);
 
-    // Scroll to top when changing organs
-    if (infoPanelRef.current) {
-      infoPanelRef.current.scrollTo({ top: 0, behavior: "smooth" });
-    }
+  if (infoPanelRef.current) {
+    infoPanelRef.current.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
-    const organ = anatomyData.find((o) => o.id === organId);
-    if (organ && organ.funFacts && organ.funFacts.length > 0) {
-      const randomFact =
-        organ.funFacts[Math.floor(Math.random() * organ.funFacts.length)];
-      setFunFact(randomFact);
-    } else {
-      showRandomFunFact();
-    }
-  };
+  const organ = anatomyData.find((o) => o.id === organId);
+  if (organ && organ.funFacts && organ.funFacts.length > 0) {
+    const randomFact =
+      organ.funFacts[Math.floor(Math.random() * organ.funFacts.length)];
+    setFunFact(randomFact);
+  } else {
+    showRandomFunFact();
+  }
+};
+
   const showRandomFunFact = () => {
     const randomFact =
       randomFunFacts[Math.floor(Math.random() * randomFunFacts.length)];
@@ -518,16 +524,16 @@ function App() {
           />
 
           {anatomyData.map((organ) => (
-            <div
-              key={organ.id}
-              id={organ.id}
-              className={`organ-circle ${activeCircle === organ.id ? "active" : ""} ${organ.id}`}
-              
-              onClick={() => selectOrgan(organ.id)}
-            >
-              
-            </div>
-          ))}
+  <div
+    key={organ.id}
+    id={organ.id}
+    className={`organ-circle ${activeCircle === organ.id ? "active" : ""} ${organ.id}`}
+    onClick={(e) => selectOrgan(organ.id, e)}
+    onTouchStart={(e) => selectOrgan(organ.id, e)}
+  >
+    {/* Keep existing content */}
+  </div>
+))}
           <div
           id="kidneyss"
           className="organ-circle kidneyss"
