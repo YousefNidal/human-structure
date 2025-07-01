@@ -817,3 +817,150 @@ h1 {
   width: 65px;
   height: 65px;
 }
+
+
+
+/* Responsive styles that won't affect large screens */
+@media (max-width: 1024px) {
+  .anatomy-viewer {
+    flex-direction: column;
+    height: auto;
+    min-height: auto;
+  }
+  
+  .diagram-container {
+    min-height: 400px;
+    min-width: 100%;
+  }
+  
+  .info-panel {
+    min-height: 400px;
+    min-width: 100%;
+    border-left: none;
+    border-top: 3px dashed #4CAF50;
+  }
+  
+  .organ-circle {
+    width: 60px;
+    height: 60px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  header {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+  
+  .subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .organ-name {
+    font-size: 1.3rem;
+  }
+  
+  .organ-cards {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+  }
+  
+  .organ-card {
+    padding: 8px;
+  }
+  
+  .organ-card-image, .organ-card-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .organ-card-name {
+    font-size: 0.8rem;
+  }
+  
+  .panel-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .fun-button, .back-button {
+    margin-top: 10px;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .quiz-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .organ-facts li {
+    font-size: 0.9rem;
+  }
+  
+  .organ-description {
+    font-size: 0.9rem;
+  }
+  
+  .sound-button {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+}
+
+/* Organ circle positioning adjustments for smaller screens */
+@media (max-width: 1024px) {
+  .organ-circle#brain {
+    left: 20px;
+    top: 100px;
+  }
+  .organ-circle#heart {
+    left: 20px;
+    top: 300px;
+  }
+  .organ-circle#lungs {
+    left: 15px;
+    top: 200px;
+  }
+  .organ-circle#kidneys {
+    left: 15px;
+    top: 380px;
+  }
+  .organ-circle#kidneyss {
+    right: 15px;
+    top: 280px;
+  }
+  .organ-circle#stomach {
+    right: 15px;
+    top: 420px;
+  }
+  .organ-circle#gastrointestinal {
+    left: 15px;
+    top: 460px;
+  }
+  .organ-circle#liver {
+    right: 15px;
+    top: 340px;
+  }
+  .organ-circle#tongue {
+    right: 15px;
+    top: 180px;
+  }
+  .organ-circle#eyes {
+    right: 15px;
+    top: 100px;
+  }
+  .organ-circle#hand {
+    right: 100px;
+    bottom: 100px;
+  }
+}
